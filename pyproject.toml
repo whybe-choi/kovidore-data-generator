@@ -1,0 +1,27 @@
+[project]
+name = "kovidore-data-generator"
+version = "0.1.0"
+description = "Synthetic Data Generation Pipeline for KoViDoRe Benchmark"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "data-designer>=0.2.1",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.1.0",
+]
+
+[tool.ruff]
+line-length = 120
+lint.fixable = ["ALL"]
+lint.unfixable = ["F401"]
+
+[tool.ruff.format]
+skip-magic-trailing-comma = false
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+force-sort-within-sections = true
+lines-after-imports = 2
