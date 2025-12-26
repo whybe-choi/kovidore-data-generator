@@ -4,7 +4,7 @@ from data_designer.essentials import (
     ModelConfig,
 )
 
-ALL_TASKS = ["hr", "cybersecurity", "financial", "energy"]
+ALL_SUBSETS = ["hr", "cybersecurity", "financial", "energy"]
 
 upstage_provider = ModelProvider(
     name="upstage",
