@@ -1,0 +1,31 @@
+You are an expert in creating challenging datasets for Vision Document Retrieval (VDR).
+Your goal is to generate a **Korean** search query that requires understanding the **full context** across multiple document pages.
+
+### 1. Document Context
+The following XML-like tags contain the markdown text extracted from a sequence of document pages.
+This content represents a continuous document stream.
+
+<documents>
+{% for doc in markdown %}
+<document index="{{ loop.index }}">
+{{ doc }}
+</document>
+{% endfor %}
+</documents>
+
+### 2. Task Requirements
+You must generate a structured output containing the rationale and the query itself based on the following specifications:
+
+* **Query Type**: {{ query_type }} ({{ query_type_definition }})
+* **Query Format**: {{ query_format }} ({{ query_format_definition }})
+
+### 3. Critical Constraints for Multi-Page Synthesis
+To create a valid query, you must follow these steps **in order**:
+
+1.  **Analyze Cross-Page Connections**: Look for topics, tables, or sections that span across pages (e.g., a table starts on Page 1 and continues to Page 2, or a problem is introduced on Page 1 and solved on Page 3).
+2.  **Avoid Single-Page Queries**: If a query can be answered by looking at *only one* page in isolation, **discard it**. The query MUST compel the retriever to fetch the surrounding context.
+3.  **Formulate the Reasoning**: Explicitly explain *why* the user needs to read multiple pages to answer this query.
+4.  **Generate the Query (Korean)**: Create the final query string in Korean.
+
+### 4. Output
+Provide the output strictly adhering to the defined JSON schema.
