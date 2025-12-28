@@ -4,6 +4,7 @@ from data_designer.essentials import DataDesigner, DataDesignerConfigBuilder, Mo
 from data_designer.interface.results import DatasetCreationResults
 import pandas as pd
 
+
 def load_prompt(prompt_name: str) -> str:
     PROMPTS_DIR = Path(__file__).parent.parent.parent / "prompts"
     prompt_path = PROMPTS_DIR / f"{prompt_name}.jinja"
@@ -14,9 +15,26 @@ def load_prompt(prompt_name: str) -> str:
     return prompt_path.read_text(encoding="utf-8")
 
 
+def load_dataframe(file_path: Path | str) -> pd.DataFrame:
+    path = Path(file_path)
+    suffix = path.suffix.lower()
+
+    if suffix == ".parquet":
+        return pd.read_parquet(path)
+    elif suffix == ".csv":
+        return pd.read_csv(path)
+    elif suffix == ".json":
+        return pd.read_json(path)
+    elif suffix == ".jsonl":
+        return pd.read_json(path, lines=True)
+    else:
+        raise ValueError(f"Unsupported file format: {suffix}. Supported formats: .parquet, .csv, .json, .jsonl")
+
+
 def create_dataset_from_seed(
     config_builder: DataDesignerConfigBuilder,
     model_providers: list[ModelProvider],
+    seed_dataframe: pd.DataFrame,
     seed_file_path: Path | str,
     num_records: int,
     artifact_path: Path | str | None = None,
@@ -24,9 +42,8 @@ def create_dataset_from_seed(
 ) -> DatasetCreationResults:
     data_designer = DataDesigner(artifact_path=artifact_path, model_providers=model_providers)
 
-    seed_df = pd.read_csv(seed_file_path)
     seed_dataset_reference = data_designer.make_seed_reference_from_dataframe(
-        dataframe=seed_df,
+        dataframe=seed_dataframe,
         file_path=seed_file_path,
     )
     config_builder.with_seed_dataset(seed_dataset_reference)
