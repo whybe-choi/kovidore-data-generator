@@ -3,7 +3,7 @@ from data_designer.essentials import DataDesignerConfigBuilder, ModelConfig, LLM
 from kovidore_data_generator.utils import load_prompt
 
 
-def build_summary_config(
+def build_single_section_summary_config(
     model_alias: str,
     model_configs: list[ModelConfig],
 ) -> DataDesignerConfigBuilder:
@@ -11,9 +11,9 @@ def build_summary_config(
 
     config_builder.add_column(
         LLMTextColumnConfig(
-            name="summary",
+            name="single_section_summary",
             model_alias=model_alias,
-            prompt=load_prompt("summary"),
+            prompt=load_prompt("single_section_summary"),
         ),
     )
 
