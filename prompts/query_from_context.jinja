@@ -1,13 +1,13 @@
 You are an expert in creating challenging datasets for Vision Document Retrieval (VDR).
-Your goal is to generate a **Korean** search query that requires understanding the **full context** across multiple document pages.
+Your goal is to generate a **highly specific Korean search query** that acts as a realistic user prompt for retrieving information from a large corpus.
 
 ### 1. Document Context
 The following XML-like tags contain the markdown text extracted from a sequence of document pages.
-This content represents a continuous document stream.
+The `<document index="...">` tags are for your internal reasoning ONLY. **Do NOT mention these indices in the final query.**
 
 <documents>
 {% for doc in markdown %}
-<document index="{{ loop.index }}">
+<document index="{{ loop.index0 }}">
 {{ doc }}
 </document>
 {% endfor %}
@@ -19,13 +19,28 @@ You must generate a structured output containing the rationale and the query its
 * **Query Type**: {{ query_type }} ({{ query_type_definition }})
 * **Query Format**: {{ query_format }} ({{ query_format_definition }})
 
-### 3. Critical Constraints for Multi-Page Synthesis
-To create a valid query, you must follow these steps **in order**:
+### 3. Critical Constraints for Realistic Retrieval
+To ensure the query works in a real search engine where the user does not know the page numbers:
 
-1.  **Analyze Cross-Page Connections**: Look for topics, tables, or sections that span across pages (e.g., a table starts on Page 1 and continues to Page 2, or a problem is introduced on Page 1 and solved on Page 3).
-2.  **Avoid Single-Page Queries**: If a query can be answered by looking at *only one* page in isolation, **discard it**. The query MUST compel the retriever to fetch the surrounding context.
-3.  **Formulate the Reasoning**: Explicitly explain *why* the user needs to read multiple pages to answer this query.
-4.  **Generate the Query (Korean)**: Create the final query string in Korean.
+#### Rule 1: NO Artificial Location References
+* **Strictly Forbidden**: "2페이지에서...", "다음 장에 있는...", "첫 번째 문서의...", "위에서 언급된..."
+* **Reason**: The user queries the entire database and does not know the document order or page numbers.
+* **Alternative**: Use **Section Headers, Table Captions, or Unique Keywords** found in the text.
+    * *Bad*: "2페이지에 있는 표를 요약해."
+    * *Good*: "**'2024년 재무 하이라이트' 표**를 요약해." (Assuming '2024년 재무 하이라이트' is the actual text in the document)
 
-### 4. Output
-Provide the output strictly adhering to the defined JSON schema.
+#### Rule 2: Implicit Multi-Page Synthesis
+* The query must requires information that happens to be scattered across multiple pages, but without explicitly stating "look at multiple pages".
+* **Strategy**:
+    * Identify **Entity A** on Page 1 (e.g., a definition or policy name).
+    * Identify **Entity B** on Page 2 or 3 (e.g., a specific data point or implementation detail).
+    * Create a query that asks for the relationship between **Entity A** and **Entity B**.
+    * *Example*: "Why did the **[Project A from Page 1]** fail to meet the targets set in the **[Q3 Report Table from Page 2]**?"
+
+#### Rule 3: Entity-Grounded Specificity
+* Avoid generic queries like "Analyze the energy policy."
+* Include specific entities found in the text: **Dates, Company Names, Regulations (e.g., ISO-27001), Project Codes, or specific Monetary Values**.
+
+### 4. Output Generation
+Generate the output strictly adhering to the defined JSON schema.
+The query must be in **Korean**.
