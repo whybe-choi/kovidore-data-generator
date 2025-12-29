@@ -7,4 +7,14 @@ def build_cross_section_summary_config(
     model_alias: str,
     model_configs: list[ModelConfig],
 ) -> DataDesignerConfigBuilder:
-    pass
+    config_builder = DataDesignerConfigBuilder(model_configs=model_configs)
+
+    config_builder.add_column(
+        LLMTextColumnConfig(
+            name="cross_section_summary",
+            model_alias=model_alias,
+            prompt=load_prompt("cross_section_summary"),
+        ),
+    )
+
+    return config_builder
