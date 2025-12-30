@@ -43,12 +43,12 @@ def main():
     parser.add_argument(
         "--list_subsets",
         action="store_true",
-        help="List available subsets and exit"
+        help="List available subsets and exit",
     )
     parser.add_argument(
         "--list_tasks",
         action="store_true",
-        help="List available tasks and exit"
+        help="List available tasks and exit",
     )
     args = parser.parse_args()
 
@@ -57,7 +57,7 @@ def main():
         for subset in ALL_SUBSETS:
             logger.info(f"  - {subset}")
         return
-    
+
     if args.list_tasks:
         logger.info("Available tasks:")
         for task in list(PIPELINES.keys()):
@@ -65,6 +65,7 @@ def main():
         return
 
     run_pipeline(args)
+
 
 if __name__ == "__main__":
     main()

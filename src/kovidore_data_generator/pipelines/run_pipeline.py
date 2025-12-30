@@ -20,7 +20,7 @@ PIPELINES = {
     "query_from_context": build_query_from_context_config,
 }
 
-    
+
 def run_pipeline(args):
     for subset_name in args.subsets:
         logger.info(f"Running pipelines for subset: {subset_name}")

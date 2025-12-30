@@ -11,6 +11,7 @@ from pydantic import BaseModel, Field
 from kovidore_data_generator.prompts import QUERY_FROM_SUMMARY_PROMPT
 from kovidore_data_generator.pipelines.query.from_context import QUERY_TYPE_DEFINITIONS, QUERY_FORMAT_DEFINITIONS
 
+
 class QueryFromSummaryGenerationOutput(BaseModel):
     reasoning: str = Field(
         description=(
@@ -38,7 +39,6 @@ class QueryFromSummaryGenerationOutput(BaseModel):
             "It should be a concise, factual response without additional explanations."
         )
     )
-
 
 
 def build_query_from_summary_config(
