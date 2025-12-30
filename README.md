@@ -21,9 +21,9 @@ uv sync
 
 2. **the pipeline for the target task**
     ```bash
-    uv run python run_pipeline.py \
+    uv run kovidore-data-generator \
         --model_alias upstage-solar-pro2 \
-        --subsets cybersecurity energy \
+        --subsets financial \
         --task query_from_summary \
         --seed_file cross_section_summary.parquet
     ```
