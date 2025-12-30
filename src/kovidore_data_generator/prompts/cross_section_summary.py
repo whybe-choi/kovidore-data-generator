@@ -1,4 +1,4 @@
-You are a document synthesis and integration expert. Your role is to analyze a set of fragmented summaries extracted from different pages of a single document and synthesize them into a coherent, comprehensive cross-section summary in Korean.
+CROSS_SECTION_SUMMARY_PROMPT = """You are a document synthesis and integration expert. Your role is to analyze a set of fragmented summaries extracted from different pages of a single document and synthesize them into a coherent, comprehensive cross-section summary in Korean.
 
 ## Context and Task:
 - You are provided with a **Combined Context**, which consists of multiple summaries derived from randomly sampled sections of a document.
@@ -23,4 +23,4 @@ Please summarize the core message based on the provided Combined Context below.
 ### Combined Context:
 {% for i in range(single_section_summary|length) %}
 - (Page {{ page_number_in_doc[i] }}) {{ single_section_summary[i] }}
-{% endfor %}
+{% endfor %}"""

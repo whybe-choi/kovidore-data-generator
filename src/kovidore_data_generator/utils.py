@@ -5,16 +5,6 @@ from data_designer.interface.results import DatasetCreationResults
 import pandas as pd
 
 
-def load_prompt(prompt_name: str) -> str:
-    PROMPTS_DIR = Path(__file__).parent.parent.parent / "prompts"
-    prompt_path = PROMPTS_DIR / f"{prompt_name}.jinja"
-
-    if not prompt_path.exists():
-        raise FileNotFoundError(f"Prompt not found: {prompt_path}")
-
-    return prompt_path.read_text(encoding="utf-8")
-
-
 def load_dataframe(file_path: Path | str) -> pd.DataFrame:
     path = Path(file_path)
     suffix = path.suffix.lower()

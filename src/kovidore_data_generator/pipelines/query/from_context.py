@@ -8,7 +8,7 @@ from data_designer.essentials import (
 )
 from pydantic import BaseModel, Field
 
-from kovidore_data_generator.utils import load_prompt
+from kovidore_data_generator.prompts import QUERY_FROM_CONTEXT_PROMPT
 
 QUERY_TYPE_DEFINITIONS = {
     "open-ended": "A query requiring synthesis and explanation of information. The answer must integrate multiple concepts into a coherent narrative rather than citing a single fact.",
@@ -23,19 +23,29 @@ QUERY_TYPE_DEFINITIONS = {
 QUERY_FORMAT_DEFINITIONS = {
     "question": "A query presented in the form of a direct question, seeking specific information or clarification.",
     "instruction": "A query framed as a directive or command, requesting the model to perform a specific task or provide information in a particular manner.",
-    "keyword": "A query consisting of one or more keywords or phrases, designed to elicit information related to those terms without forming a complete question or instruction.",
+    "keyword": "A query consisting of noun phrases and keywords only, WITHOUT forming a complete sentence. No verbs, no question words, no sentence endings. Mimics how users type into search engines: fragmented, concise, noun-centric terms separated by spaces.",
 }
 
 
-class QueryGenerationOutput(BaseModel):
+class QueryFromContextGenerationOutput(BaseModel):
     reasoning: str = Field(
-        description="Step-by-step reasoning on how the query connects information across multiple pages. Explain why this query requires reading more than one page."
+        description=(
+            "Step-by-step reasoning explaining: "
+            "(1) Which specific pieces of information from different page summaries are being connected, "
+            "(2) Why answering this query requires synthesizing information from multiple pages, "
+            "(3) What relationship/comparison/causation the query explores between the identified pieces."
+        )
     )
     related_page_indices: list[int] = Field(
-        description="A list of page indices (e.g., [0, 1, 2]) containing the information required to answer the query. Must try to include multiple pages."
+        description=(
+            "A list of page indices (e.g., [0, 1, 2]) containing the information required to answer the query."
+        )
     )
     query: str = Field(
-        description="The final search query in Korean. It must be answerable only by synthesizing the context from the specified pages."
+        description=(
+            "The final search query in Korean. "
+            "It must be answerable ONLY by synthesizing information from the specified pages. "
+        )
     )
 
 
@@ -60,6 +70,7 @@ def build_query_from_context_config(
     config_builder.add_column(
         SamplerColumnConfig(
             name="query_type_definition",
+            drop=True,
             sampler_type=SamplerType.SUBCATEGORY,
             params=SubcategorySamplerParams(
                 category="query_type",
@@ -81,6 +92,7 @@ def build_query_from_context_config(
     config_builder.add_column(
         SamplerColumnConfig(
             name="query_format_definition",
+            drop=True,
             sampler_type=SamplerType.SUBCATEGORY,
             params=SubcategorySamplerParams(
                 category="query_format",
@@ -94,8 +106,8 @@ def build_query_from_context_config(
         LLMStructuredColumnConfig(
             name="query_from_context",
             model_alias=model_alias,
-            prompt=load_prompt("query_from_context"),
-            output_format=QueryGenerationOutput,
+            prompt=QUERY_FROM_CONTEXT_PROMPT,
+            output_format=QueryFromContextGenerationOutput,
         ),
     )
 

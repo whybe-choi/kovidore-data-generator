@@ -1,14 +1,37 @@
 from data_designer.essentials import (
     CategorySamplerParams,
     DataDesignerConfigBuilder,
-    LLMTextColumnConfig,
+    LLMStructuredColumnConfig,
     SamplerColumnConfig,
     SamplerType,
     SubcategorySamplerParams,
 )
+from pydantic import BaseModel, Field
 
-from kovidore_data_generator.utils import load_prompt
+from kovidore_data_generator.prompts import QUERY_FROM_SUMMARY_PROMPT
 from kovidore_data_generator.pipelines.query.from_context import QUERY_TYPE_DEFINITIONS, QUERY_FORMAT_DEFINITIONS
+
+class QueryFromSummaryGenerationOutput(BaseModel):
+    reasoning: str = Field(
+        description=(
+            "Step-by-step reasoning explaining: "
+            "(1) Which specific pieces of information from different page summaries are being connected, "
+            "(2) Why answering this query requires synthesizing information from multiple pages, "
+            "(3) What relationship/comparison/causation the query explores between the identified pieces."
+        )
+    )
+    related_page_numbers: list[int] = Field(
+        description=(
+            "A list of actual page numbers from 'page_number_in_doc' that contain the information required to answer the query. "
+            "Use the exact page numbers provided in the input, not indices."
+        )
+    )
+    query: str = Field(
+        description=(
+            "The final search query in Korean. "
+            "It must be answerable ONLY by synthesizing information from the specified pages. "
+        )
+    )
 
 
 def build_query_from_summary_config(
@@ -32,6 +55,7 @@ def build_query_from_summary_config(
     config_builder.add_column(
         SamplerColumnConfig(
             name="query_type_definition",
+            drop=True,
             sampler_type=SamplerType.SUBCATEGORY,
             params=SubcategorySamplerParams(
                 category="query_type",
@@ -53,6 +77,7 @@ def build_query_from_summary_config(
     config_builder.add_column(
         SamplerColumnConfig(
             name="query_format_definition",
+            drop=True,
             sampler_type=SamplerType.SUBCATEGORY,
             params=SubcategorySamplerParams(
                 category="query_format",
@@ -63,10 +88,11 @@ def build_query_from_summary_config(
 
     # Add query_from_summary column
     config_builder.add_column(
-        LLMTextColumnConfig(
+        LLMStructuredColumnConfig(
             name="query_from_summary",
             model_alias=model_alias,
-            prompt=load_prompt("query_from_summary"),
+            prompt=QUERY_FROM_SUMMARY_PROMPT,
+            output_format=QueryFromSummaryGenerationOutput,
         ),
     )
 

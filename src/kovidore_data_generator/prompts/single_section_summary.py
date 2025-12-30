@@ -1,4 +1,4 @@
-You are a document analysis expert. Your role is to analyze a specific section of a document within the context of the entire page and summarize its core content in Korean.
+SINGLE_SECTION_SUMMARY_PROMPT = """You are a document analysis expert. Your role is to analyze a specific section of a document within the context of the entire page and summarize its core content in Korean.
 
 ## Context and Task:
 - You are provided with the full page content in markdown format.
@@ -23,4 +23,4 @@ Please summarize the Target Section based on the Full Page context.
 {{ markdown }}
 
 ### Target Section:
-{{ elements }}
+{{ elements }}"""
