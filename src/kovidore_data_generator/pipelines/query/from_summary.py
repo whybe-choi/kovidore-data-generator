@@ -32,6 +32,13 @@ class QueryFromSummaryGenerationOutput(BaseModel):
             "It must be answerable ONLY by synthesizing information from the specified pages. "
         )
     )
+    answer: str = Field(
+        description=(
+            "The answer to the query in Korean, based on synthesizing information from the specified pages. "
+            "It should be a concise, factual response without additional explanations."
+        )
+    )
+
 
 
 def build_query_from_summary_config(
