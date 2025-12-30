@@ -1,14 +1,44 @@
-# kovidore-data-generator
+# KoViDoRe Data Generator
 Synthetic Data Generation Pipeline for KoViDoRe Benchmark
 
 ## Overview
 <img src="assets/cover.png" alt="cover">
+
+**KoViDoRe Data Generator** is a synthetic data generation pipeline designed to construct the [KoViDoRe v2](https://huggingface.co/collections/whybe-choi/kovidore-benchmark-beir-v2) benchmark for evaluating Korean Vision Document Retrievers. Inspired by [ViDoRe V3](https://huggingface.co/blog/QuentinJG/introducing-vidore-v3), this pipeline addresses a key limitation of KoViDoRe v1—single-page matching—by generating queries that require synthesizing information across multiple pages rather than retrieving answers from a single page in isolation.
+
 
 ## Installation
 
 ```bash
 uv sync
 ```
+## Quick Start
+
+1. **Export your Upstage API key**
+    ```bash
+    export UPSTAGE_API_KEY=your_upstage_api_key_here
+    ```
+
+2. **the pipeline for the target task**
+    ```bash
+    uv run python run_pipeline.py \
+        --model_alias upstage-solar-pro2 \
+        --subsets cybersecurity energy \
+        --task query_from_summary \
+        --seed_file cross_section_summary.parquet
+    ```
+
+## Datasets
+
+[KoViDoRe v2](https://huggingface.co/collections/whybe-choi/kovidore-benchmark-beir-v2) includes four subsets, each focusing on a distinct, enterprise-relevant domain:
+
+| Subset | Description | Link |
+|--------|-------------|------|
+| **HR** | Workforce outlook and employment policy | [🤗 Dataset](https://huggingface.co/datasets/whybe-choi/kovidore-v2-hr-beir) |
+| **Energy** | Energy policy and power market trends | [🤗 Dataset](https://huggingface.co/datasets/whybe-choi/kovidore-v2-energy-beir) |
+| **Economic** | Quarterly economic trend reports | [🤗 Dataset](https://huggingface.co/datasets/whybe-choi/kovidore-v2-economic-beir) |
+| **Cybersecurity** | Cyber threat analysis and security guides | [🤗 Dataset](https://huggingface.co/datasets/whybe-choi/kovidore-v2-cybersecurity-beir) |
+
 
 ## Acknowledgements
 
