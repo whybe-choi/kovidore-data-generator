@@ -12,6 +12,9 @@ dependencies = [
 [tool.uv]
 package = true
 
+[project.scripts]
+kovidore-data-generator = "kovidore_data_generator.cli:main"
+
 [dependency-groups]
 dev = [
     "ipykernel>=7.1.0",
