@@ -5,6 +5,7 @@ from pathlib import Path
 
 import fitz
 import requests
+from tenacity import retry, stop_after_attempt, wait_exponential
 
 logger = logging.getLogger(__name__)
 
@@ -41,6 +42,13 @@ class UpstageDocumentParser(BaseDocumentParser):
         self.model = self.DEFAULT_MODEL
         self.output_format = output_format
 
+    @retry(
+        stop=stop_after_attempt(5),
+        wait=wait_exponential(multiplier=1, min=2, max=30),
+        before_sleep=lambda retry_state: logger.warning(
+            f"Retry attempt {retry_state.attempt_number} for {retry_state.args[1]}: {retry_state.outcome.exception()}"
+        ),
+    )
     def parse_document(self, file_path: str | Path) -> dict:
         with open(file_path, "rb") as file:
             response = requests.post(
