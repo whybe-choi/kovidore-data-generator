@@ -9,7 +9,7 @@ Each `<single_section_summary>` tag contains a summary of a **specific section/p
 
 <single_section_summaries>
 {% for summary in single_section_summary %}
-<single_section_summary page="{{ page_number_in_doc[loop.index0] }}">
+<single_section_summary index="{{ loop.index0 }}">
 {{ summary }}
 </single_section_summary>
 {% endfor %}
@@ -230,7 +230,7 @@ Generate the output strictly adhering to the defined JSON schema.
     1. Which specific information from which pages (by page number) you are connecting
     2. Why answering this query requires synthesizing information from multiple pages
     3. What type of synthesis (relationship/comparison/causation/integration) the query explores
-* `related_page_numbers`: List the **actual page numbers** (from the `page` attribute in `<single_section_summary>` tags) that contain the required information. **Must include at least 2 pages.**
+* `related_page_indices`: List the **actual page indices** (from the `index` attribute in `<single_section_summary>` tags) that contain the required information. **Must include at least 2 pages.**
 * `query`: The final search query in **Korean**, strictly following the specified format.
 
 The query must pass all checks in the Quality Checklist above.
