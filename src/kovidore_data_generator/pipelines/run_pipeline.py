@@ -1,4 +1,3 @@
-import argparse
 import logging
 from pathlib import Path
 
@@ -8,6 +7,7 @@ from kovidore_data_generator.pipelines import (
     build_cross_section_summary_config,
     build_query_from_summary_config,
     build_query_from_context_config,
+    build_filter_false_negs_config,
 )
 from kovidore_data_generator.utils import create_dataset_from_seed, load_dataframe
 
@@ -18,6 +18,7 @@ PIPELINES = {
     "cross_section_summary": build_cross_section_summary_config,
     "query_from_summary": build_query_from_summary_config,
     "query_from_context": build_query_from_context_config,
+    "filter_false_negatives": build_filter_false_negs_config,
 }
 
 
