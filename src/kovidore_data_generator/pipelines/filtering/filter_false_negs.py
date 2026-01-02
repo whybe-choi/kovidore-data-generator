@@ -7,10 +7,12 @@ from enum import Enum
 
 from kovidore_data_generator.prompts import FALSE_NEGATIVES_FILTERING_PROMPT
 
+
 class RelevanceScore(int, Enum):
     """
     Relevance score for query-document pairs based on VidoRe v3 scoring system.
     """
+
     IRRELEVANT = 0
     CRITICALLY_RELEVANT = 1
     FULLY_RELEVANT = 2
@@ -31,6 +33,7 @@ class FilterFalseNegativesOutput(BaseModel):
             "- 0 (IRRELEVANT): The page does not contain information relevant to the query."
         )
     )
+
 
 def build_filter_false_negs_config(
     model_alias: str,
