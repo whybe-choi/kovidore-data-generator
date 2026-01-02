@@ -1,7 +1,6 @@
 import logging
-from pathlib import Path
 
-from kovidore_data_generator.config import upstage_provider, openai_provider, model_configs
+from kovidore_data_generator.config import upstage_provider, openai_provider, model_configs, path_config
 from kovidore_data_generator.pipelines import (
     build_single_section_summary_config,
     build_cross_section_summary_config,
@@ -26,8 +25,8 @@ def run_pipeline(args):
     for subset_name in args.subsets:
         logger.info(f"Running pipelines for subset: {subset_name}")
 
-        subset_dir = Path(f"data/{subset_name}")
-        seed_file_path = subset_dir / "seed" / args.seed_file
+        subset_dir = path_config.subset_dir(subset_name)
+        seed_file_path = path_config.seed_dir(subset_name) / args.seed_file
 
         if not seed_file_path.exists():
             logger.warning(f"Seed file {seed_file_path} does not exist. Skipping subset {subset_name}.")
