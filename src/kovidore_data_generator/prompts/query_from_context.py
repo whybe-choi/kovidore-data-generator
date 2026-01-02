@@ -127,12 +127,12 @@ The query format determines the linguistic structure of your output. **Follow th
 * Mimics search engine input: fragmented, noun-centric.
 * Use spaces to separate concept clusters.
 * **Examples**:
-    * "M2 광의통화 증가율 2020년 국가채무 영향"
-    * "에너지바우처 vs 에너지효율개선 지원대상 차이"
-    * "EDF ARENH 고정가격 2022년 적자 원인"
-    * "미국 일본 중국 2025년 에너지 정책 행정명령"
-    * "프랑스 소매전력요금 상승 에너지요금 TURPE 세금"
-    * "랜섬웨어 공격 사례 2024년 2월 3월"
+    * "산업용 부식 방지를 위한 용매 선택에 영향을 미치는 요인"
+    * "항공우주 열처리 분야 SAT(시스템 정확도 시험) 장비 고장에 대한 시정 조치"
+    * "2025년 미국, 중국, 일본의 에너지 정책 행정명령 차이"
+    * "2022년 독일 내 파견 근로자 감소의 원인"
+    * "EU 노동 인력 내 녹색 직업과 고도 디지털 집약 직업 간의 연령 분포"
+    * "철강 및 시멘트 산업의 탈탄소화 기술"
 
 **Keyword Format Rules**:
 | ✅ Allowed | ❌ Forbidden |
@@ -178,8 +178,9 @@ Before finalizing the query, verify that it passes ALL of the following checks:
 #### Keyword Format
 | Quality | Example | Reason |
 |---------|---------|--------|
-| ✅ Good | "미국 일본 중국 2025년 에너지 정책 행정명령" | Noun phrases only, no verbs |
-| ✅ Good | "Clop 랜섬웨어 2019년 2분기 공격 사례 5G 보안" | Topic keywords without document title |
+| ✅ Good | "2025년 미국, 중국, 일본의 에너지 정책 행정명령 비교" | Noun phrases only, no verbs |
+| ✅ Good | "Clop 랜섬웨어의 2019년 2분기 5G 보안 공격 사례" | Topic keywords without document title |
+| ❌ Bad | 화웨이 제재 가상화폐 시장 과열 2분기 사이버 위협 APT 공격 FATF 권고안 | Too many concept clusters without clear focus |
 | ❌ Bad | "2025년에 발표된 미국, 일본, 중국의 에너지 정책은 어떤 것이 있나요?" | Complete sentence (should be keyword) |
 | ❌ Bad | "에너지 정책 분석하다 비교하다" | Contains verbs |
 | ❌ Bad | "사이버 위협 동향 보고서에서 랜섬웨어" | Document title scoping |

@@ -21,6 +21,9 @@ CROSS_SECTION_SUMMARY_PROMPT = """You are a document synthesis and integration e
 Please summarize the core message based on the provided Combined Context below.
 
 ### Combined Context:
-{% for i in range(single_section_summary|length) %}
-- (Page {{ page_number_in_doc[i] }}) {{ single_section_summary[i] }}
-{% endfor %}"""
+<secitions>
+{% for summary in single_section_summary %}
+<section index="{{ loop.index0 }}">
+{{ summary }}
+{% endfor %}
+</sections>"""
