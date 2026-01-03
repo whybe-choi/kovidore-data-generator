@@ -1,5 +1,5 @@
 # KoViDoRe Data Generator
-Synthetic Data Generation Pipeline for KoViDoRe Benchmark
+Synthetic Data Generation Pipeline for KoViDoRe v2
 
 ## Overview
 <img src="assets/cover.png" alt="cover">
@@ -19,13 +19,31 @@ uv sync
     export UPSTAGE_API_KEY=your_upstage_api_key_here
     ```
 
-2. **the pipeline for the target task**
+2. **Run the pipeline for the target task**
     ```bash
-    uv run kovidore-data-generator \
-        --model_alias upstage-solar-pro2 \
-        --subsets financial \
-        --task query_from_summary \
-        --seed_file cross_section_summary.parquet
+    # -----------------------------------------------
+    # 1. generate query from cross-section summary
+    # -----------------------------------------------
+    # 1-1. generate single-section summary based on corpus
+    bash scripts/single_section_summary.sh
+
+    # 1-2. generate cross-section summary based on single-section summary
+    bash scripts/cross_section_summary.sh
+
+    # 1-3. generate query from cross-section summary
+    bash scripts/query_from_summary.sh
+
+    # 1-4. filter false negatives
+    bash scripts/filter_query_from_summary.sh
+
+    # -----------------------------------------------
+    # 2. generate query from context
+    # -----------------------------------------------
+    # 2-1. generate query from context
+    bash scripts/query_from_context.sh
+    
+    # 2-2. filter false negatives
+    bash scripts/filter_query_from_context.sh
     ```
 
 ## Datasets
