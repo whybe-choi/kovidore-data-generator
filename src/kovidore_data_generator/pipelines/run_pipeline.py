@@ -17,7 +17,8 @@ PIPELINES = {
     "cross_section_summary": build_cross_section_summary_config,
     "query_from_summary": build_query_from_summary_config,
     "query_from_context": build_query_from_context_config,
-    "filter_false_negatives": build_filter_false_negs_config,
+    "filter_query_from_context": build_filter_false_negs_config,
+    "filter_query_from_summary": build_filter_false_negs_config,
 }
 
 
@@ -38,25 +39,14 @@ def run_pipeline(args):
         )
         seed_dataframe = load_dataframe(seed_file_path)
 
-        if args.task == "single_section_summary":
-            results = create_dataset_from_seed(
-                config_builder=config_builder,
-                model_providers=[upstage_provider, openai_provider],
-                seed_dataframe=seed_dataframe,
-                seed_file_path=seed_file_path,
-                num_records=len(seed_dataframe),  # Generate single-page summaries for all seed records
-                artifact_path=subset_dir,
-                dataset_name=args.task,
-            )
-        else:
-            results = create_dataset_from_seed(
-                config_builder=config_builder,
-                model_providers=[upstage_provider, openai_provider],
-                seed_dataframe=seed_dataframe,
-                seed_file_path=seed_file_path,
-                num_records=len(seed_dataframe) if args.num_records is None else args.num_records,
-                artifact_path=subset_dir,
-                dataset_name=args.task,
-            )
+        results = create_dataset_from_seed(
+            config_builder=config_builder,
+            model_providers=[upstage_provider, openai_provider],
+            seed_dataframe=seed_dataframe,
+            seed_file_path=seed_file_path,
+            num_records=len(seed_dataframe),  # Generate single-page summaries for all seed records
+            artifact_path=subset_dir,
+            dataset_name=args.task,
+        )
 
         results.load_analysis().to_report()
