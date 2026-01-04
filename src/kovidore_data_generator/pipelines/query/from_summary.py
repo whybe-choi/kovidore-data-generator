@@ -21,10 +21,9 @@ class QueryFromSummaryGenerationOutput(BaseModel):
             "(3) What relationship/comparison/causation the query explores between the identified pieces."
         )
     )
-    related_page_numbers: list[int] = Field(
+    related_page_indices: list[int] = Field(
         description=(
-            "A list of actual page numbers from 'page_number_in_doc' that contain the information required to answer the query. "
-            "Use the exact page numbers provided in the input, not indices."
+            "A list of page indices (e.g., [0, 1, 2]) containing the information required to answer the query."
         )
     )
     query: str = Field(
