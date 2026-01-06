@@ -1,12 +1,16 @@
 [project]
 name = "kovidore-data-generator"
-version = "0.1.0"
+version = "1.0.0"
 description = "Synthetic Data Generation Pipeline for KoViDoRe Benchmark"
+authors = [{ name = "whybe-choi", email = "whybe.choi@gmail.com" }]
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "data-designer>=0.2.1",
+    "datasets>=4.0.0",
     "pymupdf>=1.26.7",
+    "tenacity>=8.0.0",
+    "tqdm>=4.67.1",
 ]
 
 [tool.uv]
