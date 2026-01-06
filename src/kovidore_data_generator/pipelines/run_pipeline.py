@@ -1,6 +1,10 @@
 import logging
 
-from kovidore_data_generator.config import upstage_provider, openai_provider, model_configs, path_config
+from kovidore_data_generator.config import (
+    model_providers,
+    model_configs,
+    path_config,
+)
 from kovidore_data_generator.pipelines import (
     build_single_section_summary_config,
     build_cross_section_summary_config,
@@ -27,7 +31,7 @@ def run_pipeline(args):
         logger.info(f"Running pipelines for subset: {subset_name}")
 
         subset_dir = path_config.subset_dir(subset_name)
-        seed_file_path = path_config.seed_dir(subset_name) / args.seed_file
+        seed_file_path = path_config.seed_file_path(subset_name, args.task)
 
         if not seed_file_path.exists():
             logger.warning(f"Seed file {seed_file_path} does not exist. Skipping subset {subset_name}.")
@@ -41,10 +45,10 @@ def run_pipeline(args):
 
         results = create_dataset_from_seed(
             config_builder=config_builder,
-            model_providers=[upstage_provider, openai_provider],
+            model_providers=model_providers,
             seed_dataframe=seed_dataframe,
             seed_file_path=seed_file_path,
-            num_records=len(seed_dataframe),  # Generate single-page summaries for all seed records
+            num_records=len(seed_dataframe),  # Process all records in the seed dataframe
             artifact_path=subset_dir,
             dataset_name=args.task,
         )

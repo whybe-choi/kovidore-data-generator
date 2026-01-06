@@ -61,12 +61,6 @@ def main():
         help=f"Task to run. Available: {', '.join(PIPELINES.keys())}",
     )
     pipeline_parser.add_argument(
-        "--seed_file",
-        type=str,
-        default="exploded_corpus.parquet",
-        help="Path to the seed dataset file",
-    )
-    pipeline_parser.add_argument(
         "--num_records",
         type=int,
         default=None,

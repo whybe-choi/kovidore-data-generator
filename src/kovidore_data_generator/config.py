@@ -21,6 +21,8 @@ openai_provider = ModelProvider(
     api_key="OPENAI_API_KEY",
 )
 
+model_providers = [upstage_provider, openai_provider]
+
 model_configs = [
     ModelConfig(
         alias="upstage-solar-pro2",
@@ -63,14 +65,14 @@ class PathConfig:
     def pipeline_output_dir(self, subset: str, task: str) -> Path:
         return self.data_dir / subset / task / "parquet-files"
 
-    def seed_path(self, subset: str, task: str) -> Path:
+    def seed_file_path(self, subset: str, task: str) -> Path:
         return self.seed_dir(subset) / f"seed_for_{task}.parquet"
 
 
 path_config = PathConfig()
 
 
-def get_input_path(task: str, subset: str) -> Path:
+def get_pipeline_input_path(task: str, subset: str) -> Path:
     paths = {
         "single_section_summary": path_config.corpus_dir(subset),
         "cross_section_summary": path_config.pipeline_output_dir(subset, "single_section_summary"),
