@@ -1,5 +1,5 @@
 # KoViDoRe Data Generator
-Synthetic Data Generation Pipeline for KoViDoRe v2
+Synthetic data generation pipeline for KoViDoRe v2 benchmark
 
 ## Overview
 <img src="assets/cover.png" alt="cover">
@@ -11,6 +11,7 @@ Synthetic Data Generation Pipeline for KoViDoRe v2
 
 ```bash
 uv sync
+source .venv/bin/activate
 ```
 ## Quick Start
 
@@ -19,31 +20,42 @@ uv sync
     export UPSTAGE_API_KEY=your_upstage_api_key_here
     ```
 
-2. **Run the pipeline for the target task**
+2. **Build the corpus from PDF documents**
     ```bash
+    python build_corpus.py --subsets cybersecurity
+    ```
+
+3. **Run the pipeline for the target task**
+    ```bash
+    # KoViDoRe v2 followed the process below:
+
     # -----------------------------------------------
     # 1. generate query from cross-section summary
     # -----------------------------------------------
     # 1-1. generate single-section summary based on corpus
-    bash scripts/single_section_summary.sh
+    bash scripts/run.sh --subsets cybersecurity --task single_section_summary
 
     # 1-2. generate cross-section summary based on single-section summary
-    bash scripts/cross_section_summary.sh
+    bash scripts/run.sh --subsets cybersecurity --task cross_section_summary
 
     # 1-3. generate query from cross-section summary
-    bash scripts/query_from_summary.sh
+    bash scripts/run.sh --subsets cybersecurity --task query_from_summary
 
-    # 1-4. filter false negatives
-    bash scripts/filter_query_from_summary.sh
+    # 1-4. filter false negatives with LLM
+    bash scripts/run.sh --subsets cybersecurity --task filter_query_from_summary
 
     # -----------------------------------------------
     # 2. generate query from context
     # -----------------------------------------------
     # 2-1. generate query from context
-    bash scripts/query_from_context.sh
-    
-    # 2-2. filter false negatives
-    bash scripts/filter_query_from_context.sh
+    bash scripts/run.sh --subsets cybersecurity --task query_from_context
+
+    # 2-2. filter false negatives with LLM
+    bash scripts/run.sh --subsets cybersecurity --task filter_query_from_context
+
+    # -----------------------------------------------
+    # 3. quality control and audit checks (by human)
+    # -----------------------------------------------
     ```
 
 ## Datasets
@@ -57,6 +69,9 @@ uv sync
 | **Economic** | Quarterly economic trend reports | [🤗 Dataset](https://huggingface.co/datasets/whybe-choi/kovidore-v2-economic-beir) |
 | **Cybersecurity** | Cyber threat analysis and security guides | [🤗 Dataset](https://huggingface.co/datasets/whybe-choi/kovidore-v2-cybersecurity-beir) |
 
+## License
+
+MIT
 
 ## Acknowledgements
 
@@ -69,3 +84,16 @@ We also acknowledge the datasets provided by the [Public Data Portal(공공데�
 For questions or suggestions, please open an issue on the GitHub repository or contact the maintainers:
 
 - [Yongbin Choi](https://github.com/whybe-choi) - whybe.choi@gmail.com
+
+## Citation
+
+If you use KoViDoRe v2 in your research, please cite as follows:
+```bibtex
+@misc{choi2026kovidorev2,
+  author = {Yongbin Choi},
+  title = {KoViDoRe v2: a comprehensive evaluation of vision document retrieval for enterprise use-cases},
+  year = {2026},
+  url = {https://github.com/whybe-choi/kovidore-data-generator},
+  note = {A benchmark for evaluating Korean vision document retrieval with multi-page reasoning queries in practical domains}
+}
+```
