@@ -13,7 +13,7 @@ from kovidore_data_generator.prompts import QUERY_FROM_CONTEXT_PROMPT
 QUERY_TYPE_DEFINITIONS = {
     "open-ended": "A query requiring synthesis and explanation of information. The answer must integrate multiple concepts into a coherent narrative rather than citing a single fact.",
     "compare-contrast": "A query requiring identification and articulation of similarities and/or differences between two or more entities, concepts, or topics.",
-    "enumeration": "A query requesting a complete list of items that meet specific criteria.",
+    "enumerative": "A query requesting a complete list of items that meet specific criteria.",
     "numerical": "A query expecting a numerical value, obtained either by direct extraction or calculation.",
     "boolean": "A query expecting a yes/no answer, potentially requiring reasoning over extracted information.",
     "extractive": "A query answerable by directly citing a specific fact or piece of information from the documents.",
