@@ -24,6 +24,9 @@ def preprocess_for_single_section_summary(
     Returns:
         Exploded dataframe with one row per section.
     """
+    import ast
+
+    df["elements"] = df["elements"].apply(ast.literal_eval)
     exploded_df = df.explode("elements", ignore_index=True)
 
     seed_file_path = path_config.seed_file_path(subset, "single_section_summary")
