@@ -1,10 +1,10 @@
 # KoViDoRe Data Generator
-Synthetic data generation pipeline for KoViDoRe v2 benchmark
+Synthetic data generation pipeline for KoViDoRe benchmark
 
 ## Overview
 <img src="assets/cover.png" alt="cover">
 
-**KoViDoRe Data Generator** is a synthetic data generation pipeline designed to construct the [KoViDoRe v2](https://huggingface.co/collections/whybe-choi/kovidore-benchmark-beir-v2) benchmark for evaluating Korean Vision Document Retrievers. Inspired by [ViDoRe V3](https://huggingface.co/blog/QuentinJG/introducing-vidore-v3), this pipeline addresses a key limitation of KoViDoRe v1—single-page matching—by generating queries that require synthesizing information across multiple pages rather than retrieving answers from a single page in isolation.
+**KoViDoRe Data Generator** is a synthetic data generation pipeline designed to construct the [KoViDoRe v2](https://huggingface.co/collections/whybe-choi/kovidore-benchmark-beir-v2) benchmark for evaluating Korean Vision Document Retrievers. Inspired by [ViDoRe V3](https://huggingface.co/blog/QuentinJG/introducing-vidore-v3), this pipeline addresses a key limitation of KoViDoRe v1—single-page matching—by generating queries that require synthesizing information across multiple pages rather than retrieving answers from a single page in isolation. Furthermore, this pipeline can be utilized to synthesize training datasets specifically for Korean Vision Document Retrieval.
 
 ## Pipeline
 
