@@ -1,7 +1,6 @@
 import argparse
 import logging
 from pathlib import Path
-from pyexpat import model
 
 from datasets import Dataset, Features, Image, Value
 from tqdm import tqdm
