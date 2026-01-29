@@ -7,7 +7,7 @@ from data_designer.essentials import (
     ModelConfig,
 )
 
-ALL_SUBSETS = ["hr", "cybersecurity", "economic", "energy"]
+ALL_SUBSETS = ["hr", "cybersecurity", "economic", "energy"] + ["train"]
 
 upstage_provider = ModelProvider(
     name="upstage",
@@ -27,6 +27,17 @@ model_configs = [
     ModelConfig(
         alias="upstage-solar-pro2",
         model="solar-pro2",
+        provider="upstage",
+        inference_parameters=ChatCompletionInferenceParams(
+            max_tokens=4096,
+            temperature=0.7,
+            top_p=0.9,
+            extra_body={"reasoning_effort": "high"},
+        ),
+    ),
+    ModelConfig(
+        alias="upstage-solar-pro3",
+        model="solar-pro3",
         provider="upstage",
         inference_parameters=ChatCompletionInferenceParams(
             max_tokens=4096,
