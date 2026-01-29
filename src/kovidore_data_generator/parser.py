@@ -31,7 +31,7 @@ class BaseDocumentParser(ABC):
 
 class UpstageDocumentParser(BaseDocumentParser):
     ENDPOINT = "https://api.upstage.ai/v1/document-digitization"
-    DEFAULT_MODEL = "document-parse-nightly"
+    DEFAULT_MODEL = "document-parse-260128"
 
     def __init__(self, output_format: str = "markdown"):
         self.api_key = os.environ.get("UPSTAGE_API_KEY")
