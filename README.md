@@ -44,7 +44,7 @@ source .venv/bin/activate
     # 1-3. generate query from cross-section summary
     bash scripts/run.sh --subsets cybersecurity --task query_from_summary
 
-    # 1-4. filter false negatives with LLM
+    # 1-4. Relevance Mapping with LLM
     bash scripts/run.sh --subsets cybersecurity --task filter_query_from_summary
 
     # -----------------------------------------------
@@ -53,7 +53,7 @@ source .venv/bin/activate
     # 2-1. generate query from context
     bash scripts/run.sh --subsets cybersecurity --task query_from_context
 
-    # 2-2. filter false negatives with LLM
+    # 2-2. Relevance Mapping with LLM
     bash scripts/run.sh --subsets cybersecurity --task filter_query_from_context
 
     # -----------------------------------------------
@@ -63,6 +63,8 @@ source .venv/bin/activate
 
 ## Datasets
 
+### KoViDoRe v2
+
 [KoViDoRe v2](https://huggingface.co/collections/whybe-choi/kovidore-benchmark-beir-v2) includes four subsets, each focusing on a distinct, enterprise-relevant domain:
 
 | Subset | Description | Link |
@@ -71,6 +73,12 @@ source .venv/bin/activate
 | **Energy** | Energy policy and power market trends | [🤗 Dataset](https://huggingface.co/datasets/whybe-choi/kovidore-v2-energy-beir) |
 | **Economic** | Quarterly economic trend reports | [🤗 Dataset](https://huggingface.co/datasets/whybe-choi/kovidore-v2-economic-beir) |
 | **Cybersecurity** | Cyber threat analysis and security guides | [🤗 Dataset](https://huggingface.co/datasets/whybe-choi/kovidore-v2-cybersecurity-beir) |
+
+### Ko-VDR-Train-Public
+
+| Dataset | Description | Link |
+|---------|-------------|------|
+| **Ko-VDR-Train-Public** | Synthetic training dataset for Korean Visual Document Retrieval | [🤗 Dataset](https://huggingface.co/datasets/NomaDamas/ko-vdr-train-public) |
 
 ## License
 
