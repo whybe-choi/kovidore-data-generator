@@ -100,11 +100,12 @@ For questions or suggestions, please open an issue on the GitHub repository or c
 
 If you use KoViDoRe v2 in your research, please cite as follows:
 ```bibtex
-@misc{choi2026kovidorev2,
-  author = {Yongbin Choi},
-  title = {KoViDoRe v2: a comprehensive evaluation of vision document retrieval for enterprise use-cases},
-  year = {2026},
-  url = {https://github.com/whybe-choi/kovidore-data-generator},
-  note = {A benchmark for evaluating Korean vision document retrieval with multi-page reasoning queries in practical domains}
+@inproceedings{choi-etal-2026-kovidore,
+    title = "{K}o{V}i{D}o{R}e: A Benchmark for {K}orean Visual Document Retrieval",
+    author = "Choi, Yongbin and Song, Yongwoo and Sung, Mujeen",
+    booktitle = "Proceedings of the 2nd Workshop on Multimodal Augmented Generation via Multimodal Retrieval ({MAGM}a{R} 2026)",
+    year = "2026",
+    doi = "10.18653/v1/2026.magmar-main.11",
+    url = "https://aclanthology.org/2026.magmar-main.11/"
 }
 ```
